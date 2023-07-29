@@ -25,30 +25,36 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
+        //Sets input characterized as "horizontal" to a variable named horizontal
         horizontal = Input.GetAxisRaw("Horizontal");
 
+        //Makes the player jump
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
             jumpCounter--;
         }
 
+        //Checks to see if the player has a second jump or not, if they do it alows it to jump
         if (Input.GetButtonDown("Jump") && !isGrounded() && hasSecondJump())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
             jumpCounter--;
         }
 
+        //Makes the player jump higehr if they hold 'jump' for longer
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f && hasSecondJump())
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.2f);
         }
 
+        //Checks to see if the player is grounded, if the player 
         if (isGrounded())
         {
             jumpCounter = 2;
         }
 
+        //Calls the flip function to visually flip the character
         Flip();
     }
 
